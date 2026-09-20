@@ -41,6 +41,12 @@ export type FeedPostView = {
   bookmarked?: boolean
 }
 
+/* ------------------------------- Stories carousel ----------------------
+   Horizontally scrollable row. Seen stories appear desaturated with a
+   faded overlay. Clicking marks a story as seen and opens a lightbox
+   overlay that advances automatically. Arrow buttons and keyboard nav
+   let the user step through the sequence.  */
+
 function StoryViewer({
   stories,
   startIndex,
@@ -80,6 +86,7 @@ function StoryViewer({
         className="relative flex h-[90svh] max-h-[700px] w-full max-w-[360px] flex-col overflow-hidden rounded-2xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* progress bar row */}
         <div className="absolute top-0 left-0 right-0 z-10 flex gap-1 p-2">
           {stories.map((_, i) => (
             <div key={i} className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/30">
@@ -91,9 +98,11 @@ function StoryViewer({
           ))}
         </div>
 
+        {/* cover */}
         <img src={s.cover} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
+        {/* header */}
         <div className="relative z-10 mt-8 flex items-center gap-2.5 px-4 py-2">
           <Avatar src={s.avatar} size={36} ring="accent" />
           <div>
@@ -111,11 +120,13 @@ function StoryViewer({
           </button>
         </div>
 
+        {/* tap zones */}
         <div className="absolute inset-0 flex">
           <button className="flex-1" onClick={() => go(-1)} aria-label="Anterior" />
           <button className="flex-1" onClick={() => go(1)} aria-label="Próximo" />
         </div>
 
+        {/* bottom name */}
         <div className="relative z-10 mt-auto px-4 pb-6">
           <p className="text-[15px] font-semibold text-white">{s.name}</p>
         </div>
@@ -185,6 +196,7 @@ export function StoriesRow({ stories }: { stories: Story[] }) {
         ref={scrollRef}
         className="no-scrollbar -mx-5 flex gap-2.5 overflow-x-auto pb-1 [scroll-snap-type:x_mandatory] [WebkitOverflowScrolling:touch] cursor-grab select-none"
       >
+        {/* Left spacer: provides initial gap from edge; scrolls away naturally when dragging */}
         <div className="w-5 shrink-0" aria-hidden />
         {stories.map((s, i) => {
           const seen = seenSet.has(i)
@@ -196,15 +208,21 @@ export function StoriesRow({ stories }: { stories: Story[] }) {
               aria-label={`Ver story de ${s.name}`}
               className="group relative w-[112px] h-[152px] shrink-0 overflow-hidden rounded-[20px] focus:outline-none [scroll-snap-align:start]"
             >
+              {/* cover */}
               <img
                 src={s.cover}
                 alt=""
                 className={`absolute inset-0 h-full w-full object-cover transition-all duration-300 ${seen ? 'grayscale brightness-75' : 'group-hover:scale-105'}`}
               />
+              {/* gradient overlay */}
               <div className={`absolute inset-0 bg-gradient-to-t ${seen ? 'from-black/40 via-transparent to-transparent' : 'from-black/55 via-transparent to-transparent'}`} />
+
+              {/* avatar ring — 12px from edges for breathing room */}
               <span className="absolute bottom-3 left-3">
                 <Avatar src={s.avatar} size={30} ring={seen ? 'surface' : 'accent'} />
               </span>
+
+              {/* "+" add story on your own card */}
               {isYou && (
                 <span className="absolute bottom-3 right-3 grid h-5 w-5 place-items-center rounded-full bg-accent text-white shadow">
                   <PlusIcon width={12} height={12} />
@@ -213,6 +231,7 @@ export function StoriesRow({ stories }: { stories: Story[] }) {
             </button>
           )
         })}
+        {/* Right spacer: ensures last card has breathing room at right edge */}
         <div className="w-5 shrink-0" aria-hidden />
       </div>
 
@@ -229,6 +248,7 @@ export function StoriesRow({ stories }: { stories: Story[] }) {
   )
 }
 
+/* ------------------------------ Group card ----------------------------- */
 export function GroupCard({ group, onOpenGroup }: { group: Group; onOpenGroup?: (id: string) => void }) {
   return (
     <article
@@ -265,6 +285,8 @@ export function GroupCard({ group, onOpenGroup }: { group: Group; onOpenGroup?: 
   )
 }
 
+/* ------------------------------- Post ----------------------------------
+   Feed card: flat surface, 20px radius, media at 16px. */
 export function PostCard({
   post,
   onLike,
@@ -356,6 +378,9 @@ export function PostCard({
   )
 }
 
+/* --------------------------- Desktop sidebar ---------------------------
+   Flat panel; nav items use a 12px radius (not fully-rounded). Settings
+   sits in its own group separated by generous spacing + a hair-line rule. */
 const navItems: { icon: LucideIcon; label: string; key: string }[] = [
   { icon: HomeIcon, label: 'Início', key: 'home' },
   { icon: SearchIcon, label: 'Buscar', key: 'search' },
@@ -418,6 +443,7 @@ export function SidebarNav({
   )
 }
 
+/* ---------------------------- Context rail ----------------------------- */
 const railFilters = ['Todos', 'Participando', 'Sugeridos', 'Corrida', 'Ciclismo', 'Nutrição', 'Yoga', 'Treino']
 
 export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGroup?: (id: string) => void }) {
@@ -441,6 +467,7 @@ export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGr
 
   return (
     <div>
+      {/* Tabs + icons */}
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-5">
           {(['grupos', 'pessoas'] as const).map((t) => (
@@ -465,6 +492,7 @@ export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGr
         </div>
       </div>
 
+      {/* Search field */}
       {searchOpen && (
         <div className="mb-3 flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-2">
           <SearchIcon width={16} height={16} className="shrink-0 text-neutral-400" />
@@ -479,6 +507,7 @@ export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGr
         </div>
       )}
 
+      {/* Filter chips */}
       {tab === 'grupos' && filtersOpen && (
         <div className="no-scrollbar mb-3 -mx-1 flex gap-2 overflow-x-auto px-1 pb-0.5">
           {railFilters.map((f) => (
@@ -497,6 +526,7 @@ export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGr
         </div>
       )}
 
+      {/* Grupos grid — auto-fill, always fills width */}
       {tab === 'grupos' && (
         <>
           <div className="grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(190px,1fr))]">
@@ -513,6 +543,7 @@ export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGr
         </>
       )}
 
+      {/* Pessoas list */}
       {tab === 'pessoas' && (
         <>
           <ul className="space-y-1">
@@ -556,6 +587,8 @@ export function ContextRail({ groups, onOpenGroup }: { groups: Group[]; onOpenGr
   )
 }
 
+/* ------------------------------ Top bar --------------------------------
+   Flat search field (no elevation); magnifier trails on the right. */
 export function TopBar({ user, onNavigate, onNotifications }: { user: { avatar: string }; onNavigate?: (key: string) => void; onNotifications?: () => void }) {
   return (
     <header className="sticky top-0 z-40 hidden w-full items-center gap-6 bg-canvas px-5 py-4 border-b border-neutral-200 min-[800px]:flex min-[1800px]:px-8">
@@ -587,6 +620,7 @@ export function TopBar({ user, onNavigate, onNotifications }: { user: { avatar: 
   )
 }
 
+/* --------------------------- Mobile chrome ----------------------------- */
 export function MobileHeader({ user, onNotifications, onNavigate }: { user: { avatar: string }; onNotifications?: () => void; onNavigate?: (key: string) => void }) {
   return (
     <header className="sticky top-0 z-40 flex w-full items-center justify-between bg-surface px-4 py-3 border-b border-neutral-200 min-[800px]:hidden">
