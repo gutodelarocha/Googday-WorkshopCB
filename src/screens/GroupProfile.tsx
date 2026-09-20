@@ -37,8 +37,8 @@ const groupData: Record<string, {
     category: 'Esportes',
     memberAvatars: ['/assets/0b179.png', '/assets/4b35d.png', '/assets/988ee.png', '/assets/1023c.png'],
     posts: [
-      { id: 'p1', avatar: '/assets/0b179.png', name: 'Renata Silva', handle: '@renata_silva', time: '5 h', text: 'Rota nova pela ciclovia da Paulista: 18 km sem parar! 🚴\u200d♀️', image: '/assets/48d71.png', likes: 61, comments: 19 },
-      { id: 'p2', avatar: '/assets/4b35d.png', name: 'Tiago Souza', handle: '@tiago_souza', time: '1 d', text: 'Pedal coletivo amanhã às 7h no Parque Ibirapuera. Quem vem? \ud83d\udeb5', likes: 43, comments: 31 },
+      { id: 'p1', avatar: '/assets/0b179.png', name: 'Renata Silva', handle: '@renata_silva', time: '5 h', text: 'Rota nova pela ciclovia da Paulista: 18 km sem parar! 🚴‍♀️', image: '/assets/48d71.png', likes: 61, comments: 19 },
+      { id: 'p2', avatar: '/assets/4b35d.png', name: 'Tiago Souza', handle: '@tiago_souza', time: '1 d', text: 'Pedal coletivo amanhã às 7h no Parque Ibirapuera. Quem vem? 🚵', likes: 43, comments: 31 },
     ],
   },
   nutricao: {
@@ -81,7 +81,7 @@ const groupData: Record<string, {
     description: 'Encontros semanais para pedalar em grupo pela cidade. Todos os níveis são bem-vindos.',
     category: 'Esportes',
     memberAvatars: ['/assets/4b35d.png', '/assets/1023c.png', '/assets/2f96e.png'],
-    posts: [{ id: 'p1', avatar: '/assets/4b35d.png', name: 'Tiago Souza', handle: '@tiago_souza', time: '8 h', text: 'Resumo do pedal de ontem: 32 km, 8 participantes e muita risada \ud83d\udeb5\u200d\u2640\ufe0f', image: '/assets/48d71.png', likes: 68, comments: 24 }],
+    posts: [{ id: 'p1', avatar: '/assets/4b35d.png', name: 'Tiago Souza', handle: '@tiago_souza', time: '8 h', text: 'Resumo do pedal de ontem: 32 km, 8 participantes e muita risada 🚵‍♀️', image: '/assets/48d71.png', likes: 68, comments: 24 }],
   },
   hiking: {
     id: 'hiking', name: 'Hiking & Trilhas', cover: '/assets/074f9.png', privacy: 'Privado', subgroups: 4, members: 183, postsCount: 76,
