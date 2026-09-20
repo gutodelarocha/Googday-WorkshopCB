@@ -1,1 +1,1 @@
-{{file:/tmp/gp_only_content.tsx}}
+PLACEHOLDER_LOAD_FROM_/tmp/gp_only_content.tsx
