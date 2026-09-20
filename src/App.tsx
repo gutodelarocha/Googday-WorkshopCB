@@ -126,8 +126,7 @@ export default function App() {
         onSelectContact={(id) => {
           setChatContactId(id)
           setScreen('chat')
-        }
-        }
+        }}
         onOpenProfile={(id) => openProfile(id, 'messages')}
       />
     )
