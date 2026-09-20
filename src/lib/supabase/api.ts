@@ -137,12 +137,10 @@ export async function fetchActiveStories() {
 }
 
 export async function fetchNotifications() {
-  const { data, error } = await supabase.rpc('get_notifications' as any)
-  if (error) {
-    const { data: data2, error: error2 } = await supabase
-      .from('notifications')
-      .select(
-        `
+  const { data, error } = await supabase
+    .from('notifications')
+    .select(
+      `
       id,
       type,
       body,
@@ -152,12 +150,10 @@ export async function fetchNotifications() {
       group_id,
       actor:actor_id ( id, name, handle, avatar_url )
     `,
-      )
-      .order('created_at', { ascending: false })
-      .limit(50)
-    if (error2) throw error2
-    return data2 ?? []
-  }
+    )
+    .order('created_at', { ascending: false })
+    .limit(50)
+  if (error) throw error
   return data ?? []
 }
 
